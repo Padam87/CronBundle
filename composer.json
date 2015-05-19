@@ -1,0 +1,31 @@
+{
+    "name": "padam87/cron-bundle",
+    "type": "symfony-bundle",
+    "description": "A cron job manager for symfony console.",
+    "license": "MIT",
+    "keywords": [
+        "symfony",
+        "console",
+        "cron"
+    ],
+    "homepage": "https://github.com/Padam87/CronBundle",
+    "authors": [
+        {
+            "name": "Adam Prager",
+            "email": "prager.adam87@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Padam87\\CronBundle": ""}
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "doctrine/annotations": "~1.0",
+        "symfony/console": "~2.3",
+        "symfony/process": "~2.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4",
+        "mockery/mockery": "~0.9"
+    }
+}
