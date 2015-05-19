@@ -64,7 +64,7 @@ class Tab implements \ArrayAccess
      */
     public function __toString()
     {
-        return implode(PHP_EOL, $this->jobs);
+        return implode(PHP_EOL, $this->jobs) . PHP_EOL;
     }
 
     /**
