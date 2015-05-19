@@ -16,7 +16,7 @@
         }
     ],
     "autoload": {
-        "psr-4": {"Padam87\\CronBundle": ""}
+        "psr-4": {"Padam87\\CronBundle\\": ""}
     },
     "require": {
         "php": ">=5.4.0",
