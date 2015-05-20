@@ -12,6 +12,16 @@ class Tab implements \ArrayAccess
     protected $jobs = [];
 
     /**
+     * @var VariableBag
+     */
+    protected $vars;
+
+    public function __construct()
+    {
+        $this->vars = new VariableBag();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function offsetExists($offset)
@@ -64,7 +74,7 @@ class Tab implements \ArrayAccess
      */
     public function __toString()
     {
-        return implode(PHP_EOL, $this->jobs) . PHP_EOL;
+        return (string) $this->vars . PHP_EOL . implode(PHP_EOL, $this->jobs) . PHP_EOL;
     }
 
     /**
@@ -73,5 +83,13 @@ class Tab implements \ArrayAccess
     public function getJobs()
     {
         return $this->jobs;
+    }
+
+    /**
+     * @return VariableBag
+     */
+    public function getVars()
+    {
+        return $this->vars;
     }
 }

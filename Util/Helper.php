@@ -5,6 +5,7 @@ namespace Padam87\CronBundle\Util;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Padam87\CronBundle\Annotation\Job;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputInterface;
 
 class Helper
 {
@@ -29,11 +30,12 @@ class Helper
     }
 
     /**
-     * @param string $group
+     * @param InputInterface $input
+     * @param null           $group
      *
-     * @return array|Tab
+     * @return Tab
      */
-    public function read($group = null)
+    public function read(InputInterface $input = null, $group = null)
     {
         $tab = new Tab();
 
@@ -52,10 +54,19 @@ class Helper
                         $annotation->commandLine === null ? $command->getName() : $annotation->commandLine
                     );
 
+                    if ($input->hasOption('log-dir') && $annotation->logFile !== null) {
+                        $logDir = trim($input->getOption('log-dir'), '\\/');
+                        $annotation->logFile = $logDir . '/' . $annotation->logFile;
+                    }
+
                     $tab[] = $annotation;
                 }
             }
         }
+
+        $vars = $tab->getVars();
+        $vars['SYMFONY_ENV'] = $input->getOption('env');
+        $vars['MAILTO'] = $input->getOption('mailto');
 
         return $tab;
     }

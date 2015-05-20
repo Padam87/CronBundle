@@ -44,18 +44,24 @@ class Job
     public $group;
 
     /**
+     * @var string
+     */
+    public $logFile;
+
+    /**
      * @return string
      */
     public function __toString()
     {
         return sprintf(
-            "%10s %10s %10s %10s %10s    %s",
+            "%10s %10s %10s %10s %10s    %s%s",
             str_replace('\/', '/', $this->minute),
             $this->hour,
             $this->day,
             $this->month,
             $this->dayOfWeek,
-            $this->commandLine
+            $this->commandLine,
+            $this->logFile ? ' >> ' . $this->logFile : ''
         );
     }
 }

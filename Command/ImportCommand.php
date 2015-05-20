@@ -4,24 +4,24 @@ namespace Padam87\CronBundle\Command;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Padam87\CronBundle\Util\Helper;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
-class ImportCommand extends Command
+class ImportCommand extends ConfigurationAwareCommand
 {
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setName('cron:import')
             ->setDescription('Imports jobs to the crontab')
             ->addOption('user', 'u', InputArgument::OPTIONAL)
-            ->addOption('group', 'g', InputArgument::OPTIONAL)
         ;
     }
 
@@ -30,6 +30,8 @@ class ImportCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        parent::execute($input, $output);
+
         $user = $input->getOption('user');
         $group = $input->getOption('group');
 
