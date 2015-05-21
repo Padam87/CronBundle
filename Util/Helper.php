@@ -55,7 +55,7 @@ class Helper
                     );
 
                     if ($input->hasOption('log-dir') && $annotation->logFile !== null) {
-                        $logDir = trim($input->getOption('log-dir'), '\\/');
+                        $logDir = rtrim($input->getOption('log-dir'), '\\/');
                         $annotation->logFile = $logDir . '/' . $annotation->logFile;
                     }
 
