@@ -58,6 +58,11 @@ class ImportCommand extends ConfigurationAwareCommand
         $process = new Process($command);
         $process->run();
 
+        if ($process->getExitCode() !== 0) {
+            $output->writeln($process->getExitCodeText());
+            $output->writeln($process->getErrorOutput());
+        }
+
         return $process->getExitCode();
     }
 }
