@@ -46,7 +46,7 @@ class ImportCommand extends ConfigurationAwareCommand
                 time()
             )
         );
-        $content = $helper->read($group);
+        $content = $helper->read($input, $group);
         file_put_contents($path, (string) $content);
 
         $command = sprintf(
