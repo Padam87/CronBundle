@@ -46,7 +46,7 @@ class ImportCommand extends ConfigurationAwareCommand
                 time()
             )
         );
-        $content = $helper->read($group);
+        $content = $helper->read($input, $group);
         file_put_contents($path, (string) $content);
 
         $command = sprintf(
@@ -57,6 +57,11 @@ class ImportCommand extends ConfigurationAwareCommand
 
         $process = new Process($command);
         $process->run();
+
+        if ($process->getExitCode() !== 0) {
+            $output->writeln($process->getExitCodeText());
+            $output->writeln($process->getErrorOutput());
+        }
 
         return $process->getExitCode();
     }
