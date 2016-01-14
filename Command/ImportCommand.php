@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
-class ImportCommand extends ConfigurationAwareCommand
+class ImportCommand extends DumpCommand
 {
     /**
      * {@inheritdoc}
@@ -32,22 +32,9 @@ class ImportCommand extends ConfigurationAwareCommand
     {
         parent::execute($input, $output);
 
+        $path = $this->dump($input);
+
         $user = $input->getOption('user');
-        $group = $input->getOption('group');
-
-        $reader = new AnnotationReader();
-        $helper = new Helper($this->getApplication(), $reader);
-
-        $path = strtolower(
-            sprintf(
-                '%s/%s-%s.crontab',
-                sys_get_temp_dir(),
-                $this->getApplication()->getName(),
-                time()
-            )
-        );
-        $content = $helper->read($input, $group);
-        file_put_contents($path, (string) $content);
 
         $command = sprintf(
             'crontab%s %s',
@@ -62,6 +49,8 @@ class ImportCommand extends ConfigurationAwareCommand
             $output->writeln($process->getExitCodeText());
             $output->writeln($process->getErrorOutput());
         }
+
+        unlink($path);
 
         return $process->getExitCode();
     }

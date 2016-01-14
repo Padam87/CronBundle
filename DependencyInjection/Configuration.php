@@ -25,6 +25,10 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('')
                     ->info('Cron log directory')
                 ->end()
+                ->scalarNode('path')
+                    ->defaultValue(null)
+                    ->info('Cron path variable')
+                ->end()
             ->end()
         ;
 
