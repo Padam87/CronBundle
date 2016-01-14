@@ -15,7 +15,7 @@ class DumpCommand extends ConfigurationAwareCommand
     protected function configure()
     {
         parent::configure();
-        
+
         $this
             ->setName('cron:dump')
             ->setDescription('Dumps jobs to a crontab file')
@@ -29,12 +29,20 @@ class DumpCommand extends ConfigurationAwareCommand
     {
         parent::execute($input, $output);
 
-        $group = $input->getOption('group');
+        $this->dump($input);
+    }
 
+    /**
+     * @param InputInterface $input
+     *
+     * @return string
+     */
+    protected function dump(InputInterface $input)
+    {
         $reader = new AnnotationReader();
         $helper = new Helper($this->getApplication(), $reader);
 
-        $tab = $helper->read($input, $group);
+        $tab = $helper->read($input, $input->getOption('group'), $this->getConfiguration());
 
         $path = strtolower(
             sprintf(
@@ -43,5 +51,7 @@ class DumpCommand extends ConfigurationAwareCommand
             )
         );
         file_put_contents($path, (string) $tab);
+
+        return $path;
     }
 }

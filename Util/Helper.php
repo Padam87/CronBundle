@@ -31,11 +31,12 @@ class Helper
 
     /**
      * @param InputInterface $input
-     * @param null           $group
+     * @param string|null    $group
+     * @param array|null     $config
      *
      * @return Tab
      */
-    public function read(InputInterface $input = null, $group = null)
+    public function read(InputInterface $input = null, $group = null, array $config = null)
     {
         $tab = new Tab();
 
@@ -67,6 +68,10 @@ class Helper
         $vars = $tab->getVars();
         $vars['SYMFONY_ENV'] = $input->getOption('env');
         $vars['MAILTO'] = $input->getOption('mailto');
+
+        if ($config != null && isset($config['path']) && $config['path'] != null) {
+            $vars['PATH'] = $config['path'];
+        }
 
         return $tab;
     }
