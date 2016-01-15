@@ -27,8 +27,6 @@ class DumpCommand extends ConfigurationAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input, $output);
-
         $this->dump($input);
     }
 
@@ -42,7 +40,7 @@ class DumpCommand extends ConfigurationAwareCommand
         $reader = new AnnotationReader();
         $helper = new Helper($this->getApplication(), $reader);
 
-        $tab = $helper->read($input, $input->getOption('group'), $this->getConfiguration());
+        $tab = $helper->createTab($input, $this->getConfiguration());
 
         $path = strtolower(
             sprintf(

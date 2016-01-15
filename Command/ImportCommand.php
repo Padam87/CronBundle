@@ -30,8 +30,6 @@ class ImportCommand extends DumpCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input, $output);
-
         $path = $this->dump($input);
 
         $user = $input->getOption('user');
