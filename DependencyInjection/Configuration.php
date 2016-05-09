@@ -17,17 +17,12 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('mailto')
-                    ->defaultValue('')
-                    ->info('Cron mailto variable')
-                ->end()
                 ->scalarNode('log_dir')
-                    ->defaultValue('')
+                    ->defaultValue(null)
                     ->info('Cron log directory')
                 ->end()
-                ->scalarNode('path')
-                    ->defaultValue(null)
-                    ->info('Cron path variable')
+                ->arrayNode('variables')
+                    ->prototype('scalar')->end()
                 ->end()
             ->end()
         ;

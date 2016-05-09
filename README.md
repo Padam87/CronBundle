@@ -9,8 +9,10 @@ A simple bundle install. No extra stuff.
 
 ```yaml
 padam87_cron:
-    mailto: %cron_mailto%
     log_dir: %cron_log_dir%
+    variables:
+        mailto: %cron_mailto%
+        any_other_variable_you_might_need: 'some_value'
 ```
 
 ## Usage

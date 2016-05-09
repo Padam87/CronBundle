@@ -17,27 +17,14 @@ abstract class ConfigurationAwareCommand extends Command
     {
         $this
             ->addOption('group', 'g', InputArgument::OPTIONAL)
-            ->addOption('mailto', '-m', InputArgument::OPTIONAL)
-            ->addOption('log-dir', '-l', InputArgument::OPTIONAL)
         ;
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
+     *
+     * @throws \Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $config = $this->getConfiguration();
-
-        if ($this->getDefinition()->hasOption('mailto') && $input->getOption('mailto') === null) {
-            $input->setOption('mailto', $config['mailto']);
-        }
-
-        if ($this->getDefinition()->hasOption('log-dir') && $input->getOption('log-dir') === null) {
-            $input->setOption('log-dir', $config['log_dir']);
-        }
-    }
-
     public function getConfiguration()
     {
         if (get_class($this->getApplication()) == 'Symfony\Bundle\FrameworkBundle\Console\Application') {
@@ -45,9 +32,11 @@ abstract class ConfigurationAwareCommand extends Command
             /** @var ContainerInterface $container */
             $container = $this->getApplication()->getKernel()->getContainer();
 
-            return $container->getParameter('padam87_cron');
+            $config = $container->getParameter('padam87_cron');
         } else {
             throw new \Exception('Not implemented yet. PRs are welcome, as always.');
         }
+
+        return $config;
     }
 }
