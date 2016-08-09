@@ -2,7 +2,6 @@
 
 namespace Padam87\CronBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,7 +27,7 @@ abstract class ConfigurationAwareCommand extends Command
      */
     public function getConfiguration()
     {
-        if ($this->getApplication() instanceof Application) {
+        if (method_exists($this->getApplication(, "getKernel"))) {
             /** @noinspection PhpUndefinedMethodInspection */
             /** @var ContainerInterface $container */
             $container = $this->getApplication()->getKernel()->getContainer();
