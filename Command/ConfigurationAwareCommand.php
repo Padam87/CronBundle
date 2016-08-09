@@ -27,7 +27,7 @@ abstract class ConfigurationAwareCommand extends Command
      */
     public function getConfiguration()
     {
-        if (get_class($this->getApplication()) == 'Symfony\Bundle\FrameworkBundle\Console\Application') {
+        if (method_exists($this->getApplication(), "getKernel")) {
             /** @noinspection PhpUndefinedMethodInspection */
             /** @var ContainerInterface $container */
             $container = $this->getApplication()->getKernel()->getContainer();
