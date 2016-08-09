@@ -27,7 +27,7 @@ abstract class ConfigurationAwareCommand extends Command
      */
     public function getConfiguration()
     {
-        if (method_exists($this->getApplication(, "getKernel"))) {
+        if (method_exists($this->getApplication(), "getKernel")) {
             /** @noinspection PhpUndefinedMethodInspection */
             /** @var ContainerInterface $container */
             $container = $this->getApplication()->getKernel()->getContainer();
