@@ -5,6 +5,10 @@ A cron job manager for symfony console.
 
 A simple bundle install. No extra stuff.
 
+```composer require padam87/cron-bundle```
+
+```new Padam87\CronBundle\Padam87CronBundle(),```
+
 ## Configuration
 
 ```yaml
