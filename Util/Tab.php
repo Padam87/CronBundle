@@ -3,6 +3,8 @@
 namespace Padam87\CronBundle\Util;
 
 use Padam87\CronBundle\Annotation\Job;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 class Tab implements \ArrayAccess
 {
@@ -74,7 +76,26 @@ class Tab implements \ArrayAccess
      */
     public function __toString()
     {
-        return (string) $this->vars . PHP_EOL . implode(PHP_EOL, $this->jobs) . PHP_EOL;
+        $output = new BufferedOutput();
+        $table = new Table($output);
+        $table->setStyle('compact');
+
+        foreach ($this->jobs as $job) {
+            $table->addRow(
+                [
+                    str_replace('\/', '/', $job->minute),
+                    $job->hour,
+                    $job->day,
+                    $job->month,
+                    $job->dayOfWeek,
+                    $job->commandLine . ($job->logFile ? ' >> ' . $job->logFile : ''),
+                ]
+            );
+        }
+
+        $table->render();
+
+        return (string) $this->vars . PHP_EOL . $output->fetch();
     }
 
     /**
