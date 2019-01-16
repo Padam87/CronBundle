@@ -30,12 +30,7 @@ class DumpCommand extends ConfigurationAwareCommand
         $this->dump($input);
     }
 
-    /**
-     * @param InputInterface $input
-     *
-     * @return string
-     */
-    protected function dump(InputInterface $input)
+    protected function dump(InputInterface $input): string
     {
         $reader = new AnnotationReader();
         $helper = new Helper($this->getApplication(), $reader);
@@ -48,6 +43,7 @@ class DumpCommand extends ConfigurationAwareCommand
                 $this->getApplication()->getName()
             )
         );
+
         file_put_contents($path, (string) $tab);
 
         return $path;

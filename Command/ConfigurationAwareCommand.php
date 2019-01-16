@@ -20,12 +20,7 @@ abstract class ConfigurationAwareCommand extends Command
         ;
     }
 
-    /**
-     * @return array
-     *
-     * @throws \Exception
-     */
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         if (method_exists($this->getApplication(), "getKernel")) {
             /** @noinspection PhpUndefinedMethodInspection */

@@ -9,33 +9,16 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class Helper
 {
-    /**
-     * @var Application
-     */
-    protected $application;
+    private $application;
+    private $annotationReader;
 
-    /**
-     * @var AnnotationReader
-     */
-    protected $annotationReader;
-
-    /**
-     * @param Application      $application
-     * @param AnnotationReader $annotationReader
-     */
     public function __construct(Application $application, AnnotationReader $annotationReader)
     {
         $this->application = $application;
         $this->annotationReader = $annotationReader;
     }
 
-    /**
-     * @param InputInterface $input
-     * @param array|null     $config
-     *
-     * @return Tab
-     */
-    public function createTab(InputInterface $input, array $config = null)
+    public function createTab(InputInterface $input, ?array $config = null): Tab
     {
         $tab = new Tab();
 
