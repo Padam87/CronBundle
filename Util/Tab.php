@@ -11,12 +11,8 @@ class Tab implements \ArrayAccess
     /**
      * @var Job[]
      */
-    protected $jobs = [];
-
-    /**
-     * @var VariableBag
-     */
-    protected $vars;
+    private $jobs = [];
+    private $vars;
 
     public function __construct()
     {
@@ -71,10 +67,7 @@ class Tab implements \ArrayAccess
         unset($this->jobs[$offset]);
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         $output = new BufferedOutput();
         $table = new Table($output);
@@ -101,15 +94,12 @@ class Tab implements \ArrayAccess
     /**
      * @return Job[]
      */
-    public function getJobs()
+    public function getJobs(): array
     {
         return $this->jobs;
     }
 
-    /**
-     * @return VariableBag
-     */
-    public function getVars()
+    public function getVars(): VariableBag
     {
         return $this->vars;
     }

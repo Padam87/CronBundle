@@ -6,10 +6,7 @@ use Padam87\CronBundle\Annotation\Job;
 
 class VariableBag implements \ArrayAccess
 {
-    /**
-     * @var array
-     */
-    protected $vars = [];
+    private $vars = [];
 
     /**
      * {@inheritdoc}
@@ -45,10 +42,7 @@ class VariableBag implements \ArrayAccess
         unset($this->vars[$offset]);
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         $string = '';
         foreach ($this->vars as $k => $v) {
@@ -58,10 +52,7 @@ class VariableBag implements \ArrayAccess
         return $string;
     }
 
-    /**
-     * @return Job[]
-     */
-    public function getVars()
+    public function getVars(): array
     {
         return $this->vars;
     }

@@ -34,11 +34,13 @@ class ImportCommand extends DumpCommand
 
         $user = $input->getOption('user');
 
-        $command = sprintf(
-            'crontab%s %s',
-            $user !== null ? ' -u ' . $user : '',
-            $path
-        );
+        $command = ['crontab'];
+
+        if ($user !== null) {
+            $command[] = '-u ' . $user;
+        }
+
+        $command[] = $path;
 
         $process = new Process($command);
         $process->run();
