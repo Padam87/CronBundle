@@ -24,6 +24,10 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('variables')
                     ->prototype('scalar')->end()
                 ->end()
+                ->scalarNode('php_binary')
+                    ->defaultValue('php')
+                    ->info('Path to PHP binary')
+                ->end()
             ->end()
         ;
 
