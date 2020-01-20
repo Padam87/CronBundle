@@ -35,7 +35,7 @@ class Helper
 
                     $annotation->commandLine = sprintf(
                         '%s %s %s',
-                        $config['php_binary']?:'php',
+                        $config['php_binary'],
                         realpath($_SERVER['argv'][0]),
                         $annotation->commandLine === null ? $command->getName() : $annotation->commandLine
                     );
