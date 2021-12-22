@@ -28,6 +28,8 @@ class DumpCommand extends ConfigurationAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->dump($input);
+
+        return 0;
     }
 
     protected function dump(InputInterface $input): string
