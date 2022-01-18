@@ -29,7 +29,7 @@ class DumpCommand extends ConfigurationAwareCommand
     {
         $this->dump($input);
 
-        return 0;
+        return self::SUCCESS;
     }
 
     protected function dump(InputInterface $input): string
