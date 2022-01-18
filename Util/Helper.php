@@ -5,6 +5,7 @@ namespace Padam87\CronBundle\Util;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Padam87\CronBundle\Annotation\Job;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\LazyCommand;
 use Symfony\Component\Console\Input\InputInterface;
 
 class Helper
@@ -23,7 +24,11 @@ class Helper
         $tab = new Tab();
 
         foreach($this->application->all() as $command) {
-            $annotations = $this->annotationReader->getClassAnnotations(new \ReflectionClass($command));
+            $commandInstance = $command instanceof LazyCommand
+                ? $command->getCommand()
+                : $command;
+
+            $annotations = $this->annotationReader->getClassAnnotations(new \ReflectionClass($commandInstance));
 
             foreach ($annotations as $annotation) {
                 if ($annotation instanceof Job) {
@@ -37,7 +42,7 @@ class Helper
                         '%s %s %s',
                         $config['php_binary'],
                         realpath($_SERVER['argv'][0]),
-                        $annotation->commandLine === null ? $command->getName() : $annotation->commandLine
+                        $annotation->commandLine === null ? $commandInstance->getName() : $annotation->commandLine
                     );
 
                     if ($config['log_dir'] !== null && $annotation->logFile !== null) {
