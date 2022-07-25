@@ -5,6 +5,7 @@ namespace Padam87\CronBundle\Util;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Padam87\CronBundle\Annotation\Job;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\LazyCommand;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -23,34 +24,31 @@ class Helper
     {
         $tab = new Tab();
 
-        foreach($this->application->all() as $command) {
+        foreach ($this->application->all() as $command) {
             $commandInstance = $command instanceof LazyCommand
                 ? $command->getCommand()
                 : $command;
 
-            $annotations = $this->annotationReader->getClassAnnotations(new \ReflectionClass($commandInstance));
+            $reflectionClass = new \ReflectionClass($commandInstance);
 
-            foreach ($annotations as $annotation) {
-                if ($annotation instanceof Job) {
-                    $group = $input->hasOption('group') ? $input->getOption('group') : null;
+            if (PHP_MAJOR_VERSION >= 8.0) {
+                $attributes = $reflectionClass->getAttributes(Job::class);
 
-                    if ($group !== null && $group != $annotation->group) {
-                        continue;
+                if (count($attributes) > 0) {
+                    foreach ($attributes as $attribute) {
+                        $this->processJob(new Job(...$attribute->getArguments()), $input, $config, $commandInstance, $tab);
                     }
 
-                    $annotation->commandLine = sprintf(
-                        '%s %s %s',
-                        $config['php_binary'],
-                        realpath($_SERVER['argv'][0]),
-                        $annotation->commandLine === null ? $commandInstance->getName() : $annotation->commandLine
-                    );
+                    // Don't process annotations
+                    continue;
+                }
+            }
 
-                    if ($config['log_dir'] !== null && $annotation->logFile !== null) {
-                        $logDir = rtrim($config['log_dir'], '\\/');
-                        $annotation->logFile = $logDir . DIRECTORY_SEPARATOR . $annotation->logFile;
-                    }
+            $jobs = $this->annotationReader->getClassAnnotations($reflectionClass);
 
-                    $tab[] = $annotation;
+            foreach ($jobs as $job) {
+                if ($job instanceof Job) {
+                    $this->processJob($job, $input, $config, $commandInstance, $tab);
                 }
             }
         }
@@ -72,5 +70,28 @@ class Helper
         }
 
         return $tab;
+    }
+
+    private function processJob(Job $job, InputInterface $input, array $config, Command $commandInstance, Tab $tab): void
+    {
+        $group = $input->hasOption('group') ? $input->getOption('group') : null;
+
+        if ($group !== null && $group !== $job->group) {
+            return;
+        }
+
+        $job->commandLine = sprintf(
+            '%s %s %s',
+            $config['php_binary'],
+            realpath($_SERVER['argv'][0]),
+            $annotation->commandLine ?? $commandInstance->getName()
+        );
+
+        if ($config['log_dir'] !== null && $job->logFile !== null) {
+            $logDir = rtrim($config['log_dir'], '\\/');
+            $job->logFile = $logDir.DIRECTORY_SEPARATOR.$job->logFile;
+        }
+
+        $tab[] = $job;
     }
 }
