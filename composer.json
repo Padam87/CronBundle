@@ -19,8 +19,8 @@
         "psr-4": {"Padam87\\CronBundle\\": ""}
     },
     "require": {
-        "php": "^7.1|^8.0",
-        "doctrine/annotations": "~1.0",
+        "php": "^7.4|^8.0",
+        "doctrine/annotations": "^1.12",
         "symfony/console": "^5.1|^6.0",
         "symfony/process": "^5.1|^6.0",
         "symfony/config": "^5.1|^6.0",
