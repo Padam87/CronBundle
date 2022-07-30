@@ -2,8 +2,7 @@
 
 namespace Padam87\CronBundle\Util;
 
-use Doctrine\Common\Annotations\AnnotationReader;
-use Padam87\CronBundle\Annotation\Job;
+use Padam87\CronBundle\Attribute\Job;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\LazyCommand;
@@ -11,13 +10,8 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class Helper
 {
-    private $application;
-    private $annotationReader;
-
-    public function __construct(Application $application, AnnotationReader $annotationReader)
+    public function __construct(private Application $application)
     {
-        $this->application = $application;
-        $this->annotationReader = $annotationReader;
     }
 
     public function createTab(InputInterface $input, ?array $config = null): Tab
@@ -31,25 +25,10 @@ class Helper
 
             $reflectionClass = new \ReflectionClass($commandInstance);
 
-            if (PHP_MAJOR_VERSION >= 8) {
-                $attributes = $reflectionClass->getAttributes(Job::class);
+            $attributes = $reflectionClass->getAttributes(Job::class);
 
-                if (count($attributes) > 0) {
-                    foreach ($attributes as $attribute) {
-                        $this->processJob(new Job(...$attribute->getArguments()), $input, $config, $commandInstance, $tab);
-                    }
-
-                    // Don't process annotations
-                    continue;
-                }
-            }
-
-            $jobs = $this->annotationReader->getClassAnnotations($reflectionClass);
-
-            foreach ($jobs as $job) {
-                if ($job instanceof Job) {
-                    $this->processJob($job, $input, $config, $commandInstance, $tab);
-                }
+            foreach ($attributes as $attribute) {
+                $this->processJob(new Job(...$attribute->getArguments()), $input, $config, $commandInstance, $tab);
             }
         }
 

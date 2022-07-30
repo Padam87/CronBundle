@@ -2,8 +2,6 @@
 
 namespace Padam87\CronBundle\Command;
 
-use Doctrine\Common\Annotations\AnnotationReader;
-use Padam87\CronBundle\Util\Helper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

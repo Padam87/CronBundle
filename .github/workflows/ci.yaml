@@ -16,13 +16,11 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "7.4"
-          - "8.0"
           - "8.1"
         dependencies:
           - "highest"
         include:
-          - php-version: "7.4"
+          - php-version: "8.1"
             dependencies: "lowest"
 
     steps:

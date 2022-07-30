@@ -2,7 +2,6 @@
 
 namespace Padam87\CronBundle\Command;
 
-use Doctrine\Common\Annotations\AnnotationReader;
 use Padam87\CronBundle\Util\Helper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -34,8 +33,7 @@ class DumpCommand extends ConfigurationAwareCommand
 
     protected function dump(InputInterface $input): string
     {
-        $reader = new AnnotationReader();
-        $helper = new Helper($this->getApplication(), $reader);
+        $helper = new Helper($this->getApplication());
 
         $tab = $helper->createTab($input, $this->getConfiguration());
 

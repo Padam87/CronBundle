@@ -19,7 +19,9 @@ padam87_cron:
     any_other_variable_you_might_need: 'some_value'
 ```
 
-## Usage
+## Usage (v3)
+
+**Please note that v2 versions of this bundle still support annotations.**
 
 ### Commands
 
@@ -28,48 +30,22 @@ padam87_cron:
 
 ### Basic
 
-_Using attributes (requires PHP 8.0 or higher)_
 ```php
 #[Job(minute: '5', hour: '0')]
 class MyCommand extends Command
 ```
 
-_Using annotations_
-```php
-/**
- * @Cron\Job(minute="5", hour="0")
- */
-class MyCommand extends Command
-```
-
 ### Groups
 
-_Using attributes (requires PHP 8.0 or higher)_
 ```php
 #[Job(minute: '5',hour: '0', group: 'master')]
 class MyCommand extends Command
 ```
 
-_Using annotations_
-```php
-/**
- * @Cron\Job(minute="5", hour="0", group="master")
- */
-class MyCommand extends Command
-```
-
 ### Output file
-_Using attributes (requires PHP 8.0 or higher)_
+
 ```php
 #[Job(minute: '5', hour: '0', logFile: 'my-command.log')]
-class MyCommand extends Command
-```
-
-_Using annotations_
-```php
-/**
- * @Cron\Job(minute="5", hour="0", logFile="my-command.log")
- */
 class MyCommand extends Command
 ```
 

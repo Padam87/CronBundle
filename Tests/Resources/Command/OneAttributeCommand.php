@@ -2,7 +2,7 @@
 
 namespace Padam87\CronBundle\Tests\Resources\Command;
 
-use Padam87\CronBundle\Annotation\Job;
+use Padam87\CronBundle\Attribute\Job;
 use Symfony\Component\Console\Command\Command;
 
 #[Job]
