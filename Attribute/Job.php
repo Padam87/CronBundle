@@ -1,14 +1,7 @@
 <?php
 
-namespace Padam87\CronBundle\Annotation;
+namespace Padam87\CronBundle\Attribute;
 
-use Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor;
-
-/**
- * @Annotation
- * @NamedArgumentConstructor
- * @Target("CLASS")
- */
 #[\Attribute(\Attribute::TARGET_CLASS)]
 class Job
 {

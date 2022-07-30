@@ -2,7 +2,7 @@
 
 namespace Padam87\CronBundle\Util;
 
-use Padam87\CronBundle\Annotation\Job;
+use Padam87\CronBundle\Attribute\Job;
 
 class VariableBag implements \ArrayAccess
 {

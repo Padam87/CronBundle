@@ -2,7 +2,7 @@
 
 namespace Padam87\CronBundle\Util;
 
-use Padam87\CronBundle\Annotation\Job;
+use Padam87\CronBundle\Attribute\Job;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\BufferedOutput;
 
