@@ -31,7 +31,7 @@ class Helper
 
             $reflectionClass = new \ReflectionClass($commandInstance);
 
-            if (PHP_MAJOR_VERSION >= 8.0) {
+            if (PHP_MAJOR_VERSION >= 8) {
                 $attributes = $reflectionClass->getAttributes(Job::class);
 
                 if (count($attributes) > 0) {

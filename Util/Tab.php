@@ -22,7 +22,7 @@ class Tab implements \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->jobs[$offset]);
     }
@@ -32,7 +32,7 @@ class Tab implements \ArrayAccess
      *
      * @return Job
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->jobs[$offset];
     }
@@ -40,7 +40,7 @@ class Tab implements \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (!$value instanceof Job) {
             throw new \UnexpectedValueException(
@@ -62,7 +62,7 @@ class Tab implements \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->jobs[$offset]);
     }
