@@ -28,7 +28,7 @@ class Helper
             $attributes = $reflectionClass->getAttributes(Job::class);
 
             foreach ($attributes as $attribute) {
-                $this->processJob(new Job(...$attribute->getArguments()), $input, $config, $commandInstance, $tab);
+                $this->processJob($attribute->newInstance(), $input, $config, $commandInstance, $tab);
             }
         }
 

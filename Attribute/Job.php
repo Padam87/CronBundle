@@ -2,7 +2,7 @@
 
 namespace Padam87\CronBundle\Attribute;
 
-#[\Attribute(\Attribute::TARGET_CLASS)]
+#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class Job
 {
     public string $minute;
