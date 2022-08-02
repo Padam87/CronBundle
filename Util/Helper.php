@@ -36,7 +36,6 @@ class Helper
 
                 if (count($attributes) > 0) {
                     foreach ($attributes as $attribute) {
-                        $this->processJob(new Job(...$attribute->getArguments()), $input, $config, $commandInstance, $tab);
                         $this->processJob($attribute->newInstance(), $input, $config, $commandInstance, $tab);
                     }
 
