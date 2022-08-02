@@ -9,8 +9,7 @@ use Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor;
  * @NamedArgumentConstructor
  * @Target("CLASS")
  */
-#[\Attribute(\Attribute::TARGET_CLASS,)]
-#[\Attribute(\Attribute::IS_REPEATABLE,)]
+#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class Job
 {
     public string $minute;
