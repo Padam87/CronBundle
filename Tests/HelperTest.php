@@ -112,7 +112,7 @@ class HelperTest extends TestCase
     /**
      * @test
      */
-    public function should_process_jobs()
+    public function should_process_job_parameters()
     {
         $commands = [new ProcessTestCommand()];
 
@@ -129,8 +129,14 @@ class HelperTest extends TestCase
 
         $job = $tab->getJobs()[0];
 
+        // groups parameter
+        $this->assertEquals('my-group', $job->group);
+
+        // logFile parameter
         $this->assertEquals($this->getConfig()['log_dir'] . '/myjob.log', $job->logFile);
+
+        // commandLine parameter
         $this->assertStringStartsWith($this->getConfig()['php_binary'], $job->commandLine);
-        $this->assertStringEndsWith('my:job', $job->commandLine);
+        $this->assertStringEndsWith('my:job 42 --first-option --second-option true', $job->commandLine);
     }
 }
