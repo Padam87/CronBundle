@@ -244,7 +244,7 @@ class HelperTest extends TestCase
     public function should_process_jobs()
     {
         $command = $this->createMock(Command::class);
-        $command->expects($this->once())->method('getName')->willReturn('my:job');
+        $command->expects($this->never())->method('getName'); // custom command line provided, no call for default
 
         $commands = [$command];
 
