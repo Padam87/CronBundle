@@ -63,7 +63,7 @@ class Helper
             '%s %s %s',
             $config['php_binary'],
             realpath($_SERVER['argv'][0]),
-            $annotation->commandLine ?? $commandInstance->getName()
+            $job->commandLine ?? $commandInstance->getName()
         );
 
         if ($config['log_dir'] !== null && $job->logFile !== null) {

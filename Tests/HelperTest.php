@@ -129,8 +129,11 @@ class HelperTest extends TestCase
 
         $job = $tab->getJobs()[0];
 
+        // logFile parameter
         $this->assertEquals($this->getConfig()['log_dir'] . '/myjob.log', $job->logFile);
+
+        // commandLine parameter
         $this->assertStringStartsWith($this->getConfig()['php_binary'], $job->commandLine);
-        $this->assertStringEndsWith('my:job', $job->commandLine);
+        $this->assertStringEndsWith('my:job 42 --first-option --second-option true', $job->commandLine);
     }
 }
