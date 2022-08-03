@@ -244,7 +244,7 @@ class HelperTest extends TestCase
     public function should_process_jobs()
     {
         $command = $this->createMock(Command::class);
-        $command->expects($this->once())->method('getName')->willReturn('my:job');
+        $command->expects($this->never())->method('getName'); // custom command line provided, no call for default
 
         $commands = [$command];
 
@@ -253,7 +253,7 @@ class HelperTest extends TestCase
 
         $annotationReader = $this->createMock(AnnotationReader::class);
         $annotationReader->expects($this->once())->method('getClassAnnotations')->willReturn([
-            new Job('*', '*', '*', '*', '*', null, 'myjob.log'),
+            new Job('*', '*', '*', '*', '*', null, 'myjob.log', 'my:job 42 --first-option --second-option true'),
         ]);
 
         $helper = new Helper($application, $annotationReader);
@@ -266,8 +266,11 @@ class HelperTest extends TestCase
 
         $job = $tab->getJobs()[0];
 
+        // logFile parameter
         $this->assertEquals($this->getConfig()['log_dir'] . '/myjob.log', $job->logFile);
+
+        // commandLine parameter
         $this->assertStringStartsWith($this->getConfig()['php_binary'], $job->commandLine);
-        $this->assertStringEndsWith('my:job', $job->commandLine);
+        $this->assertStringEndsWith('my:job 42 --first-option --second-option true', $job->commandLine);
     }
 }
