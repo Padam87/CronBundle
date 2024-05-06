@@ -6,13 +6,13 @@ use Padam87\CronBundle\Attribute\Job;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-class Tab implements \ArrayAccess
+class Tab implements \ArrayAccess, \Stringable
 {
     /**
      * @var Job[]
      */
-    private $jobs = [];
-    private $vars;
+    private array $jobs = [];
+    private VariableBag $vars;
 
     public function __construct()
     {
@@ -47,7 +47,7 @@ class Tab implements \ArrayAccess
                 sprintf(
                     'The crontab should only contain instances of "%s", "%s" given',
                     'Padam87\CronBundle\Annotation\Job',
-                    get_class($value)
+                    $value::class
                 )
             );
         }

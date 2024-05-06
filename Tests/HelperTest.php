@@ -25,7 +25,7 @@ class HelperTest extends TestCase
     /**
      * @test
      */
-    public function should_register_single_job_attribute()
+    public function should_register_single_job_attribute(): void
     {
         $commands = [
             new OneAttributeCommand(),
@@ -46,7 +46,7 @@ class HelperTest extends TestCase
     /**
      * @test
      */
-    public function should_register_multiple_job_attributes()
+    public function should_register_multiple_job_attributes(): void
     {
         $commands = [
             new TwoAttributesCommand(),
@@ -67,7 +67,7 @@ class HelperTest extends TestCase
     /**
      * @test
      */
-    public function should_register_job_attributes_on_multiple_commands()
+    public function should_register_job_attributes_on_multiple_commands(): void
     {
         $stdClass = new \stdClass();
         $commands = [
@@ -91,7 +91,7 @@ class HelperTest extends TestCase
     /**
      * @test
      */
-    public function should_ignore_irrelevant_attributes()
+    public function should_ignore_irrelevant_attributes(): void
     {
         $commands = [
             new IrrelevantAttributeCommand(),
@@ -112,7 +112,7 @@ class HelperTest extends TestCase
     /**
      * @test
      */
-    public function should_process_jobs()
+    public function should_process_jobs(): void
     {
         $commands = [new ProcessTestCommand()];
 

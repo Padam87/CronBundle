@@ -4,9 +4,9 @@ namespace Padam87\CronBundle\Util;
 
 use Padam87\CronBundle\Attribute\Job;
 
-class VariableBag implements \ArrayAccess
+class VariableBag implements \ArrayAccess, \Stringable
 {
-    private $vars = [];
+    private array $vars = [];
 
     /**
      * {@inheritdoc}

@@ -44,7 +44,7 @@ class Helper
                     continue;
                 }
 
-                $vars[strtoupper($name)] = $value;
+                $vars[strtoupper((string) $name)] = $value;
             }
         }
 
@@ -67,7 +67,7 @@ class Helper
         );
 
         if ($config['log_dir'] !== null && $job->logFile !== null) {
-            $logDir = rtrim($config['log_dir'], '\\/');
+            $logDir = rtrim((string) $config['log_dir'], '\\/');
             $job->logFile = $logDir.DIRECTORY_SEPARATOR.$job->logFile;
         }
 
