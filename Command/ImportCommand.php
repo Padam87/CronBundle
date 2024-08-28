@@ -26,7 +26,7 @@ class ImportCommand extends DumpCommand
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $path = $this->dump($input);
 
