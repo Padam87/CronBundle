@@ -11,7 +11,7 @@ class DumpCommand extends ConfigurationAwareCommand
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 

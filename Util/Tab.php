@@ -88,7 +88,7 @@ class Tab implements \ArrayAccess, \Stringable
 
         $table->render();
 
-        return (string) $this->vars . PHP_EOL . $output->fetch();
+        return $this->vars . PHP_EOL . $output->fetch();
     }
 
     /**

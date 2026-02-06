@@ -4,8 +4,6 @@ namespace Padam87\CronBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class ConfigurationAwareCommand extends Command
@@ -13,7 +11,7 @@ abstract class ConfigurationAwareCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->addOption('group', 'g', InputArgument::OPTIONAL)
