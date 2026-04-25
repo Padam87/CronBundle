@@ -12,7 +12,7 @@ class ImportCommand extends DumpCommand
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
